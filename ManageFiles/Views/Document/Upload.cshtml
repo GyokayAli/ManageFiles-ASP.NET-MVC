@@ -1,0 +1,40 @@
+﻿@model ManageFiles.Models.DocumentViewModel
+@using Common.Resources
+@{
+    ViewBag.Title = DocumentResource.UploadHeader;
+}
+
+<h2>@DocumentResource.UploadHeader</h2>
+
+@using (Html.BeginForm("Upload", "Document", FormMethod.Post, new { id="uploadForm", EncType = "multipart/form-data" }))
+{
+    <div class="row form-group">
+        <label for="file" class="col-md-3">@DocumentResource.FileChooser</label>
+        <input type="file" name="file" id="file" />
+    </div>
+    <div class="row form-group">
+        @Html.LabelFor(model => model.DocumentName, new { @class = "col-md-3" })
+        @Html.TextAreaFor(model => model.DocumentName, 5, 5, new { @class = "col-md-3 form-control" })
+        @Html.ValidationMessageFor(model => model.DocumentName, null, new { @class = "col-md-3 text-danger" })
+    </div>
+    <div class="row form-group">
+        @Html.LabelFor(model => model.UploadedBy, new { @class = "col-md-3" })
+        @Html.TextBoxFor(model => model.UploadedBy, new { @class = "col-md-3 form-control" })
+        @Html.ValidationMessageFor(model => model.UploadedBy, null, new { @class = "col-md-3 text-danger" })
+    </div>
+    <div class="row form-group">
+        @Html.LabelFor(model => model.DocumentExternalURI, new { @class = "col-md-3" })
+        @Html.TextBoxFor(model => model.DocumentExternalURI, new { @class = "col-md-3 form-control" })
+        @Html.ValidationMessageFor(model => model.DocumentExternalURI, null, new { @class = "col-md-3 text-danger" })
+    </div>
+    <input type="submit" value="@DocumentResource.Submit" class="btn btn-primary" />
+}
+
+
+<div class="progress">
+    <div class="progress-bar progress-bar-striped active" role="progressbar"
+          aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%">
+        <span class="sr-only">0% Complete</span>
+    </div>
+</div>
+<div class="error"></div>

@@ -1,0 +1,65 @@
+﻿@model ManageFiles.Models.SearchResultsModel
+@using Common.Resources
+
+@{
+    if (Model.SearchResults.Count() > 0)
+    {
+        <h3><strong>@Model.SearchResults.Count()</strong> документа бяха намерени!</h3>
+
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            @DocumentResource.ID
+                        </th>
+                        <th>
+                            @DocumentResource.DocName
+                        </th>
+                        <th>
+                            @DocumentResource.UploadedBy
+                        </th>
+                        <th>
+                            @DocumentResource.DateUploaded
+                        </th>
+                        <th>
+                            @DocumentResource.DocExternalURI
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="resultTable">
+                    @foreach (var item in Model.SearchResults)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DocumentName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UploadedBy)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DateUploaded)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DocumentExternalURI)
+                            </td>
+                            <td>
+                                <div>
+                                    <a id="show-file" href='@string.Format("http://localhost:8080/files-downloader/show/file/{0}", item.ContentUUID)' class="glyphicon glyphicon-open btn btn-info">@DocumentResource.Show</a>
+                                    <a id="download-file" href='@string.Format("http://localhost:8080/files-downloader/download/file/{0}", item.ContentUUID)' class="glyphicon glyphicon-save btn btn-warning">@DocumentResource.Download</a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="pagination-container">
+                    <ul class="pagination" id="resultPager"></ul>
+                </div>
+            </div>
+    }
+}

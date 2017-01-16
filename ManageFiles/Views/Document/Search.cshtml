@@ -1,0 +1,53 @@
+﻿@model ManageFiles.Models.SearchResultsModel
+@using Common.Resources
+
+@{
+    ViewBag.Title = DocumentResource.SearchHeader;
+}
+<h2>@DocumentResource.SearchHeader</h2>
+
+@using (Html.BeginForm("Search", "Document", FormMethod.Post))
+{
+    <div class="row form-group">
+        @Html.LabelFor(model => model.UploadedBy, new { @class = "col-md-3" })
+        @Html.TextBoxFor(model => model.UploadedBy, new {@id="txt", @class = "col-md-3 form-control" })
+        @Html.ValidationMessageFor(model => model.UploadedBy, null, new { @class = "col-md-3 text-danger" })
+    </div>
+    <div class="row form-group">
+        @Html.LabelFor(model => model.DocumentName, new { @class = "col-md-3" })
+        @Html.TextAreaFor(model => model.DocumentName, 1, 1, new { @class = "col-md-3 form-control" })
+        @Html.ValidationMessageFor(model => model.DocumentName, null, new { @class = "col-md-3 text-danger" })
+    </div>
+    <div class="row form-group">
+        @Html.LabelFor(model => model.ContentUUID, new { @class = "col-md-3" })
+        @Html.TextBoxFor(model => model.ContentUUID, new { @class = "col-md-3 form-control" })
+        @Html.ValidationMessageFor(model => model.ContentUUID, null, new { @class = "col-md-3 text-danger" })
+    </div>
+    <div class="row form-group">
+        @Html.LabelFor(model => model.DocumentExternalURI, new { @class = "col-md-3" })
+        @Html.TextBoxFor(model => model.DocumentExternalURI, new { @class = "col-md-3 form-control" })
+        @Html.ValidationMessageFor(model => model.DocumentExternalURI, null, new { @class = "col-md-3 text-danger" })
+    </div>
+    <div class="row form-group">
+        @Html.LabelFor(model => model.Id, new { @class = "col-md-3" })
+        @Html.TextBoxFor(model => model.Id, new { @class = "col-md-3 form-control" })
+        @Html.ValidationMessageFor(model => model.Id, null, new { @class = "col-md-3 text-danger" })
+    </div>
+
+    <input type="submit" value="@DocumentResource.Search" class="btn btn-primary" />
+    <button type="button" class="btn btn-danger col-lg-offset-3" onclick="resetAllFilters();" >@DocumentResource.ClearFilters</button>
+}
+
+@{
+    Html.RenderPartial("_SearchResult");
+}
+
+<script type="text/javascript">
+        function resetAllFilters() {
+                $('input[type=text]').each(function() {
+                    $(this).val('');
+                    $('#Id').val('0');
+                    $('#ContentUUID').val('00000000-0000-0000-0000-000000000000');
+                });
+        };
+</script>
